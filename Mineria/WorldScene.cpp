@@ -1,6 +1,7 @@
 #include "WorldScene.h"
 #include <QDebug>
 #include <QKeyEvent>
+#include <QGraphicsItem>
 
 WorldScene::WorldScene(QObject* parent) : QGraphicsScene(parent)
 {
@@ -19,11 +20,17 @@ void WorldScene::keyPressEvent(QKeyEvent* event)
     case Qt::Key_A:
         x -= 1;
         break;
+    case Qt::Key_W:
+        y -= 1;
+        break;
+    case Qt::Key_S:
+        y += 1;
+        break;
     default:
         break;
     }
     qDebug() << "x: " << x << " " << "y: " << y;
-    setSceneRect(x, y, 640+x, 480);
+    setSceneRect(x, y, 640, 480);
     update();
     QGraphicsScene::keyPressEvent(event);
 }

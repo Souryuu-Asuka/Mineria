@@ -7,13 +7,15 @@ constexpr auto WorldSize = 64;
 constexpr auto WorldHeight = 64;
 constexpr auto ChunkWidth = 16;
 
+// should be made into item group
+
 using ChunkInternal = std::array<std::array<std::unique_ptr<BlockBase>, WorldHeight>, ChunkWidth>;
 
 struct Chunk {
     ChunkInternal internal;
     int index;
 
-    Chunk(int i);
+    Chunk(int idx);
     Chunk(ChunkInternal ci, int i);
 };
 

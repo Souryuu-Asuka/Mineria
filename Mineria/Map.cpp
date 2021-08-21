@@ -1,7 +1,7 @@
 #include "Map.h"
 #include "Blocks.h"
 
-Chunk::Chunk(int i)
+Chunk::Chunk(int idx)
 {
     for (int i = 0; i < ChunkWidth; i++) {
         internal[i][0] = std::make_unique<Bedrock>();
@@ -11,7 +11,7 @@ Chunk::Chunk(int i)
         for (int j = 30; j < WorldHeight; j++)
             internal[i][j] = std::make_unique<Air>();
     }
-    index = i;
+    index = idx;
 }
 
 Chunk::Chunk(ChunkInternal ci, int i)

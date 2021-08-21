@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     for (int i = 0; i < 10; i++)
     {
         Bedrock* br = new Bedrock();
-        br->setPos(100, 100 + i * 20);
+        br->setPos(100, 100 + static_cast<qreal>(i) * 20);
         g->addToGroup(br);
     }
 
