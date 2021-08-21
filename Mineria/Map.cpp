@@ -1,17 +1,23 @@
 #include "Map.h"
+#include "BlockBase.h"
 #include "Blocks.h"
 
 Chunk::Chunk(int idx)
 {
-    for (int i = 0; i < ChunkWidth; i++) {
-        internal[i][0] = std::make_unique<Bedrock>();
-        internal[i][1] = std::make_unique<Bedrock>();
-        for (int j = 2; j < 30; j++)
-            internal[i][j] = std::make_unique<Stone>();
-        for (int j = 30; j < WorldHeight; j++)
-            internal[i][j] = std::make_unique<Air>();
-    }
     index = idx;
+
+    for (int i = 0; i < ChunkWidth; i++) {
+        internal[i][0] = new Bedrock();
+        internal[i][1] = new Bedrock();
+        for (int j = 2; j < GroundLevel; j++)
+            internal[i][j] = new Stone();
+        for (int j = GroundLevel; j < WorldHeight; j++)
+            internal[i][j] = new Air();
+    }
+    
+    for (int i = 0; i < ChunkWidth; i++)
+        for (int j = 0; j < WorldHeight; j++)
+            internal[i][j]->setPos(index*ChunkWidth*BlockSize + i*BlockSize, WorldHeight* BlockSize - j* BlockSize);
 }
 
 Chunk::Chunk(ChunkInternal ci, int i)
@@ -19,12 +25,31 @@ Chunk::Chunk(ChunkInternal ci, int i)
 
 Map::Map()
 {
-    spawn = std::make_unique<Chunk>(0);
+    spawn = Chunk(0);
     for (int i = 0; i < WorldSize; i++) {
-        leftChunks[i] = std::make_unique<Chunk>(-i - 1);
-        rightChunks[i] = std::make_unique<Chunk>(i + 1);
+        leftChunks[i] = Chunk(-i - 1);
+        rightChunks[i] = Chunk(i + 1);
     }
 }
 
-Map::Map(std::unique_ptr<Chunk> sp, MapChunks l, MapChunks r)
+Map::Map(Chunk sp, MapChunks l, MapChunks r)
     : spawn(std::move(sp)), leftChunks(std::move(l)), rightChunks(std::move(r)) {}
+
+QGraphicsItemGroup* loadMap()
+{
+    auto map = Map();
+    QGraphicsItemGroup* g = new QGraphicsItemGroup();
+    for (auto& i : map.spawn.internal)
+        for (auto j : i)
+            g->addToGroup(j);
+    for (auto& i : map.leftChunks)
+        for (auto& j : i.internal)
+            for (auto k : j)
+                g->addToGroup(k);
+    for (auto& i : map.rightChunks)
+        for (auto& j : i.internal)
+            for (auto k : j)
+                g->addToGroup(k);
+
+    return g;
+}

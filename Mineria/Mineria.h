@@ -14,7 +14,4 @@ protected:
     virtual void keyPressEvent(QKeyEvent* event) override;
     virtual void mouseMoveEvent(QMouseEvent* event) override;
     virtual void mousePressEvent(QMouseEvent* event) override;
-
-private:
-    int x, y;
 };

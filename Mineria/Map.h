@@ -3,29 +3,30 @@
 #include <array>
 #include "BlockBase.h"
 
-constexpr auto WorldSize = 64;
-constexpr auto WorldHeight = 64;
-constexpr auto ChunkWidth = 16;
+constexpr auto WorldSize = 4;
+constexpr auto WorldHeight = 16;
+constexpr auto ChunkWidth = 4;
+constexpr auto GroundLevel = WorldHeight / 2;
 
-// should be made into item group
-
-using ChunkInternal = std::array<std::array<std::unique_ptr<BlockBase>, WorldHeight>, ChunkWidth>;
+using ChunkInternal = std::array<std::array<BlockBase*, WorldHeight>, ChunkWidth>;
 
 struct Chunk {
     ChunkInternal internal;
     int index;
 
-    Chunk(int idx);
+    Chunk(int idx = 0);
     Chunk(ChunkInternal ci, int i);
 };
 
-using MapChunks = std::array<std::unique_ptr<Chunk>, WorldSize>;
+using MapChunks = std::array<Chunk, WorldSize>;
 
 struct Map {
-    std::unique_ptr<Chunk> spawn;
+    Chunk spawn;
     MapChunks leftChunks;
     MapChunks rightChunks;
 
     Map();
-    Map(std::unique_ptr<Chunk> sp, MapChunks l, MapChunks r);
+    Map(Chunk sp, MapChunks l, MapChunks r);
 };
+
+QGraphicsItemGroup* loadMap();

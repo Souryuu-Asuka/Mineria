@@ -30,13 +30,13 @@ void BlockBase::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
         painter->setPen(QPen(QColor(100, 100, 100, 100)));
     }
     painter->setBrush(color);
-    painter->drawRect(-10, -10, 20, 20);
+    painter->drawRect(-BlockSize / 2, -BlockSize / 2, BlockSize, BlockSize);
 }
 
 QRectF BlockBase::boundingRect() const
 {
     qreal adjust = 0;
-    return QRectF(-20 - adjust, -20 - adjust, 20 + adjust, 20 + adjust);
+    return QRectF(-BlockSize / 2 - adjust, -BlockSize / 2 - adjust, BlockSize + adjust, BlockSize + adjust);
 }
 
 //BlockBase::BlockBase(bool trans, QPixmap tx)

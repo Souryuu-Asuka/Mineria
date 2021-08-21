@@ -3,6 +3,8 @@
 #include <QGraphicsItem>
 //#include <QPixmap>
 
+constexpr auto BlockSize = 20;
+
 class BlockBase
     : public QGraphicsItem
 {
@@ -13,6 +15,6 @@ public:
     virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override;
     virtual QRectF boundingRect() const override;
 
+private:
     QColor color;
-
 };
