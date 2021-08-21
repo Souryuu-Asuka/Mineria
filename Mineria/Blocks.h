@@ -5,6 +5,8 @@
 #define GENBLOCK(name) class name : public BlockBase { \
 public: \
     name(); \
+    virtual void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget) override; \
+    virtual QRectF boundingRect() const override; \
 };
 
 GENBLOCK(Air)

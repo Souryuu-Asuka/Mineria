@@ -1,6 +1,6 @@
 #include "Mineria.h"
 #include "WorldScene.h"
-#include "BlockBase.h"
+#include "Blocks.h"
 #include <QtWidgets/QApplication>
 
 int main(int argc, char *argv[])
@@ -11,9 +11,16 @@ int main(int argc, char *argv[])
     WorldScene scene;
     w.setScene(&scene);
 
-    BlockBase* dirt = new BlockBase(Qt::red);
-    dirt->setPos(10, 10);
-    scene.addItem(dirt);
+    QGraphicsItemGroup* g = new QGraphicsItemGroup();
+
+    for (int i = 0; i < 10; i++)
+    {
+        Bedrock* br = new Bedrock();
+        br->setPos(100, 100 + i * 20);
+        g->addToGroup(br);
+    }
+
+    scene.addItem(g);
 
     w.show();
     return a.exec();

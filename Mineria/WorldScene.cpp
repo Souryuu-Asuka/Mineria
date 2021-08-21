@@ -23,6 +23,8 @@ void WorldScene::keyPressEvent(QKeyEvent* event)
         break;
     }
     qDebug() << "x: " << x << " " << "y: " << y;
+    setSceneRect(x, y, 640+x, 480);
+    update();
     QGraphicsScene::keyPressEvent(event);
 }
 

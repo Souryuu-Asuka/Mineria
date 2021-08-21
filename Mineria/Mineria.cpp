@@ -5,7 +5,6 @@
 Mineria::Mineria(QWidget *parent)
     : QGraphicsView(parent)
 {
-
 }
 
 void Mineria::keyPressEvent(QKeyEvent* event)
