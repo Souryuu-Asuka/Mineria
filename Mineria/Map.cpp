@@ -9,8 +9,9 @@ Chunk::Chunk(int idx)
     for (int i = 0; i < ChunkWidth; i++) {
         internal[i][0] = new Bedrock();
         internal[i][1] = new Bedrock();
-        for (int j = 2; j < GroundLevel; j++)
+        for (int j = 2; j < GroundLevel-1; j++)
             internal[i][j] = new Stone();
+        internal[i][GroundLevel-1] = new Grass();
         for (int j = GroundLevel; j < WorldHeight; j++)
             internal[i][j] = new Air();
     }
